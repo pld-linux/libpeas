@@ -158,6 +158,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
+%post	gtk -p /sbin/ldconfig
+%postun	gtk -p /sbin/ldconfig
 
 %files -f libpeas.lang
 %defattr(644,root,root,755)
