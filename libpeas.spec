@@ -1,7 +1,3 @@
-#
-# TODO:
-#  - subpackages for python and seed loaders
-#
 # Conditional build:
 %bcond_without	apidocs		# do not build and package API docs
 %bcond_without	static_libs	# don't build static libraries
@@ -9,12 +5,13 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	0.7.1
-Release:	0.1
+Version:	0.7.3
+Release:	1
 License:	LGPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/0.7/%{name}-%{version}.tar.gz
-# Source0-md5:	3038e8f8876d87b85dc5e35844935231
+# Source0-md5:	58456ddf05c3dc5b8a8dc68a68f88356
+Patch0:		gir.patch
 URL:		http://live.gnome.org/Libpeas
 BuildRequires:	autoconf >= 2.63.2
 BuildRequires:	automake >= 1.11
@@ -39,6 +36,22 @@ has a set of features including, but not limited to:
  - multiple extension points
  - on demand (lazy) programming language support for C, Python and JS
  - simplicity of the API 
+
+%package loader-python
+Summary:	Python loader for libpeas library
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description devel
+Python loader for libpeas library.
+
+%package loader-seed
+Summary:	JavaScript loader for libpeas library
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description devel
+JavaScript loader for libpeas library.
 
 %package devel
 Summary:	Header files for libpeas library
@@ -120,6 +133,10 @@ Dokumentacja API biblioteki libpeas.
 Summary:	Demo application for libpeas
 Summary(pl.UTF-8): Aplikacja demonstracyjna libpeas
 Group:		Application
+Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-gtk = %{version}-%{release}
+Requires:	%{name}-loader-python = %{version}-%{release}
+Requires:	%{name}-loader-seed = %{version}-%{release}
 
 %description demo
 Demo application for libpeas.
@@ -129,10 +146,17 @@ Aplikacja demonstracyjna libpeas.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	%{__enable_disable static_libs static} \
+	%{__enable_disable apidocs gtk-doc} \
 	--disable-silent-rules
 %{__make}
 
@@ -168,7 +192,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libpeas-1.0.so.0
 %{_libdir}/girepository-1.0/Peas-1.0.typelib
 %{_libdir}/libpeas-1.0/loaders/libcloader.so
+
+%files loader-python
+%defattr(644,root,root,755)
 %{_libdir}/libpeas-1.0/loaders/libpythonloader.so
+
+%files loader-seed
+%defattr(644,root,root,755)
 %{_libdir}/libpeas-1.0/loaders/libseedloader.so
 
 %files devel
@@ -217,7 +247,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/peas-demo/plugins/secondtime/secondtime.plugin
 %{_libdir}/peas-demo/plugins/seedhello/seedhello.js
 %{_libdir}/peas-demo/plugins/seedhello/seedhello.plugin
-
 
 %if %{with apidocs}
 %files apidocs

@@ -1,0 +1,11 @@
+--- libpeas-0.7.3/libpeas-gtk/Makefile.am.wiget	2011-03-03 21:00:59.937203008 +0100
++++ libpeas-0.7.3/libpeas-gtk/Makefile.am	2011-02-20 19:22:23.000000000 +0100
+@@ -58,7 +58,7 @@ if HAVE_INTROSPECTION
+   PeasGtk-1.0.gir: libpeas-gtk-1.0.la
+   PeasGtk_1_0_gir_INCLUDES = GObject-2.0 $(GTK_TYPELIB)
+   PeasGtk_1_0_gir_CFLAGS = $(PEAS_CFLAGS) $(PEAS_GTK_CFLAGS) -I$(top_srcdir)
+-  PeasGtk_1_0_gir_LIBS = libpeas-gtk-1.0.la
++  PeasGtk_1_0_gir_LIBS = libpeas-gtk-1.0.la $(top_builddir)/libpeas/libpeas-1.0.la
+   PeasGtk_1_0_gir_FILES = $(addprefix $(srcdir)/,$(introspection_sources))
+   PeasGtk_1_0_gir_EXPORT_PACKAGES = libpeas-gtk-1.0
+   PeasGtk_1_0_gir_SCANNERFLAGS = --include-uninstalled=$(top_builddir)/libpeas/Peas-1.0.gir
