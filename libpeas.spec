@@ -190,8 +190,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_libdir}/libpeas-1.0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libpeas-1.0.so.0
-%{_libdir}/girepository-1.0/Peas-1.0.typelib
+%dir %{_libdir}/libpeas-1.0
+%dir %{_libdir}/libpeas-1.0/loaders
 %{_libdir}/libpeas-1.0/loaders/libcloader.so
+%{_libdir}/girepository-1.0/Peas-1.0.typelib
 
 %files loader-python
 %defattr(644,root,root,755)
