@@ -42,7 +42,7 @@ Summary:	Python loader for libpeas library
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
-%description devel
+%description loader-python
 Python loader for libpeas library.
 
 %package loader-seed
@@ -50,7 +50,7 @@ Summary:	JavaScript loader for libpeas library
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
-%description devel
+%description loader-seed
 JavaScript loader for libpeas library.
 
 %package devel
