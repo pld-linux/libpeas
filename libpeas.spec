@@ -6,12 +6,12 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.0.0
+Version:	1.1.3
 Release:	1
 License:	LGPL v2
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.0/%{name}-%{version}.tar.bz2
-# Source0-md5:	d716358eec12d4439d04c337733f1f60
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.1/%{name}-%{version}.tar.xz
+# Source0-md5:	1630b92c18a0e3e336b8f9119f7da110
 URL:		http://live.gnome.org/Libpeas
 BuildRequires:	autoconf >= 2.63.2
 BuildRequires:	automake >= 1:1.11
@@ -24,9 +24,10 @@ BuildRequires:	gtk-doc >= 1.11
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	python >= 2.5.2
-BuildRequires:	python-pygobject-devel >= 2.28.0
+BuildRequires:	python-pygobject3-devel >= 2.29.2
 BuildRequires:	rpmbuild(macros) >= 1.601
 BuildRequires:	seed-devel >= 3.0.0
+BuildRequires:	gjs-devel >= 1.29.16
 BuildRequires:	vala >= 1:0.12.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -48,12 +49,20 @@ Requires:	%{name} = %{version}-%{release}
 Python loader for libpeas library.
 
 %package loader-seed
-Summary:	JavaScript loader for libpeas library
+Summary:	JavaScript (seed) loader for libpeas library
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description loader-seed
-JavaScript loader for libpeas library.
+JavaScript (seed) loader for libpeas library.
+
+%package loader-gjs
+Summary:	JavaScript (GJS) loader for libpeas library
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description loader-gjs
+JavaScript (GJS) loader for libpeas library.
 
 %package devel
 Summary:	Header files for libpeas library
@@ -145,6 +154,7 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-gtk = %{version}-%{release}
 Requires:	%{name}-loader-python = %{version}-%{release}
 Requires:	%{name}-loader-seed = %{version}-%{release}
+Requires:	%{name}-loader-gjs = %{version}-%{release}
 
 %description demo
 Demo application for libpeas.
@@ -217,6 +227,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libseedloader.so
 
+%files loader-gjs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libgjsloader.so
+
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpeas-1.0.so
@@ -267,6 +281,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/peas-demo/plugins/seedhello
 %{_libdir}/peas-demo/plugins/seedhello/seedhello.js
 %{_libdir}/peas-demo/plugins/seedhello/seedhello.plugin
+%dir %{_libdir}/peas-demo/plugins/gjshello
+%{_libdir}/peas-demo/plugins/gjshello/gjshello.js
+%{_libdir}/peas-demo/plugins/gjshello/gjshello.plugin
 %dir %{_libdir}/peas-demo/plugins/valahello
 %attr(755,root,root) %{_libdir}/peas-demo/plugins/valahello/libvalahello.so
 %{_libdir}/peas-demo/plugins/valahello/valahello.plugin
