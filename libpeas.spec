@@ -16,6 +16,7 @@ URL:		http://live.gnome.org/Libpeas
 BuildRequires:	autoconf >= 2.63.2
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-devel >= 0.17
+BuildRequires:	gjs-devel >= 1.29.16
 BuildRequires:	glib2-devel >= 1:2.24.0
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.10.1
@@ -27,8 +28,9 @@ BuildRequires:	python >= 2.5.2
 BuildRequires:	python-pygobject3-devel >= 2.29.2
 BuildRequires:	rpmbuild(macros) >= 1.601
 BuildRequires:	seed-devel >= 3.0.0
-BuildRequires:	gjs-devel >= 1.29.16
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	vala >= 1:0.12.0
+BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -94,8 +96,8 @@ Statyczna biblioteka libpeas.
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Group:		X11/Libraries
-Requires:	%{name} = %{version}-%{release}
 Requires(post,postun):	gtk-update-icon-cache
+Requires:	%{name} = %{version}-%{release}
 Requires:	hicolor-icon-theme
 
 %description gtk
@@ -152,9 +154,9 @@ Summary(pl.UTF-8):	Aplikacja demonstracyjna libpeas
 Group:		Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-gtk = %{version}-%{release}
+Requires:	%{name}-loader-gjs = %{version}-%{release}
 Requires:	%{name}-loader-python = %{version}-%{release}
 Requires:	%{name}-loader-seed = %{version}-%{release}
-Requires:	%{name}-loader-gjs = %{version}-%{release}
 
 %description demo
 Demo application for libpeas.
