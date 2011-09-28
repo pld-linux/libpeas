@@ -6,16 +6,17 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.0.0
+Version:	1.2.0
 Release:	1
 License:	LGPL v2
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.0/%{name}-%{version}.tar.bz2
-# Source0-md5:	d716358eec12d4439d04c337733f1f60
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.2/%{name}-%{version}.tar.xz
+# Source0-md5:	ed23e817108920dd6d3ef8fe487ba520
 URL:		http://live.gnome.org/Libpeas
 BuildRequires:	autoconf >= 2.63.2
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-devel >= 0.17
+BuildRequires:	gjs-devel >= 1.29.16
 BuildRequires:	glib2-devel >= 1:2.24.0
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.10.1
@@ -24,10 +25,12 @@ BuildRequires:	gtk-doc >= 1.11
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	python >= 2.5.2
-BuildRequires:	python-pygobject-devel >= 2.28.0
+BuildRequires:	python-pygobject3-devel >= 3.0.0
 BuildRequires:	rpmbuild(macros) >= 1.601
 BuildRequires:	seed-devel >= 3.0.0
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	vala >= 1:0.12.0
+BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -48,12 +51,20 @@ Requires:	%{name} = %{version}-%{release}
 Python loader for libpeas library.
 
 %package loader-seed
-Summary:	JavaScript loader for libpeas library
+Summary:	JavaScript (seed) loader for libpeas library
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description loader-seed
-JavaScript loader for libpeas library.
+JavaScript (seed) loader for libpeas library.
+
+%package loader-gjs
+Summary:	JavaScript (GJS) loader for libpeas library
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description loader-gjs
+JavaScript (GJS) loader for libpeas library.
 
 %package devel
 Summary:	Header files for libpeas library
@@ -85,8 +96,8 @@ Statyczna biblioteka libpeas.
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Group:		X11/Libraries
-Requires:	%{name} = %{version}-%{release}
 Requires(post,postun):	gtk-update-icon-cache
+Requires:	%{name} = %{version}-%{release}
 Requires:	hicolor-icon-theme
 
 %description gtk
@@ -143,6 +154,7 @@ Summary(pl.UTF-8):	Aplikacja demonstracyjna libpeas
 Group:		Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-gtk = %{version}-%{release}
+Requires:	%{name}-loader-gjs = %{version}-%{release}
 Requires:	%{name}-loader-python = %{version}-%{release}
 Requires:	%{name}-loader-seed = %{version}-%{release}
 
@@ -217,6 +229,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libseedloader.so
 
+%files loader-gjs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libgjsloader.so
+
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpeas-1.0.so
@@ -267,6 +283,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/peas-demo/plugins/seedhello
 %{_libdir}/peas-demo/plugins/seedhello/seedhello.js
 %{_libdir}/peas-demo/plugins/seedhello/seedhello.plugin
+%dir %{_libdir}/peas-demo/plugins/gjshello
+%{_libdir}/peas-demo/plugins/gjshello/gjshello.js
+%{_libdir}/peas-demo/plugins/gjshello/gjshello.plugin
 %dir %{_libdir}/peas-demo/plugins/valahello
 %attr(755,root,root) %{_libdir}/peas-demo/plugins/valahello/libvalahello.so
 %{_libdir}/peas-demo/plugins/valahello/valahello.plugin
