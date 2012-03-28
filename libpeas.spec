@@ -6,18 +6,19 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.2.0
+Version:	1.4.0
 Release:	1
 License:	LGPL v2
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.2/%{name}-%{version}.tar.xz
-# Source0-md5:	ed23e817108920dd6d3ef8fe487ba520
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.4/%{name}-%{version}.tar.xz
+# Source0-md5:	cc39dd2985a17aa362ad111d0a96e7b9
+Patch0:		pkgconfig-format.patch
 URL:		http://live.gnome.org/Libpeas
 BuildRequires:	autoconf >= 2.63.2
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-devel >= 0.17
-BuildRequires:	gjs-devel >= 1.29.16
-BuildRequires:	glib2-devel >= 1:2.24.0
+BuildRequires:	gjs-devel >= 1.31.11
+BuildRequires:	glib2-devel >= 1:2.31.2
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.10.1
 BuildRequires:	gtk+3-devel >= 3.0.0
@@ -29,7 +30,7 @@ BuildRequires:	python-pygobject3-devel >= 3.0.0
 BuildRequires:	rpmbuild(macros) >= 1.601
 BuildRequires:	seed-devel >= 3.0.0
 BuildRequires:	tar >= 1:1.22
-BuildRequires:	vala >= 1:0.12.0
+BuildRequires:	vala >= 1:0.14.0.22
 BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -71,7 +72,7 @@ Summary:	Header files for libpeas library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libpeas
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.24.0
+Requires:	glib2-devel >= 1:2.31.2
 Requires:	gobject-introspection-devel >= 0.10.1
 
 %description devel
@@ -166,6 +167,7 @@ Aplikacja demonstracyjna libpeas.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -177,7 +179,8 @@ Aplikacja demonstracyjna libpeas.
 	--disable-silent-rules \
 	%{__enable_disable static_libs static} \
 	%{__enable_disable apidocs gtk-doc} \
-	--with-html-dir=%{_gtkdocdir}
+	--with-html-dir=%{_gtkdocdir} \
+	--enable-vala
 %{__make}
 
 %install
@@ -218,7 +221,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libpeas-1.0.so.0
 %dir %{_libdir}/libpeas-1.0
 %dir %{_libdir}/libpeas-1.0/loaders
-%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libcloader.so
 %{_libdir}/girepository-1.0/Peas-1.0.typelib
 
 %files loader-python
