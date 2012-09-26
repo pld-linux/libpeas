@@ -6,19 +6,18 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.4.0
+Version:	1.6.0
 Release:	1
 License:	LGPL v2
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.4/%{name}-%{version}.tar.xz
-# Source0-md5:	cc39dd2985a17aa362ad111d0a96e7b9
-Patch0:		pkgconfig-format.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.6/%{name}-%{version}.tar.xz
+# Source0-md5:	ad922c0a77193e5a216d133fd7d3c9dc
 URL:		http://live.gnome.org/Libpeas
 BuildRequires:	autoconf >= 2.63.2
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-devel >= 0.17
-BuildRequires:	gjs-devel >= 1.31.11
-BuildRequires:	glib2-devel >= 1:2.31.2
+BuildRequires:	gjs-devel >= 1.32.0
+BuildRequires:	glib2-devel >= 1:2.32.0
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.10.1
 BuildRequires:	gtk+3-devel >= 3.0.0
@@ -30,7 +29,6 @@ BuildRequires:	python-pygobject3-devel >= 3.0.0
 BuildRequires:	rpmbuild(macros) >= 1.601
 BuildRequires:	seed-devel >= 3.0.0
 BuildRequires:	tar >= 1:1.22
-BuildRequires:	vala >= 1:0.14.0.22
 BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -72,7 +70,7 @@ Summary:	Header files for libpeas library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libpeas
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.31.2
+Requires:	glib2-devel >= 1:2.32.0
 Requires:	gobject-introspection-devel >= 0.10.1
 
 %description devel
@@ -167,7 +165,6 @@ Aplikacja demonstracyjna libpeas.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -179,8 +176,7 @@ Aplikacja demonstracyjna libpeas.
 	--disable-silent-rules \
 	%{__enable_disable static_libs static} \
 	%{__enable_disable apidocs gtk-doc} \
-	--with-html-dir=%{_gtkdocdir} \
-	--enable-vala
+	--with-html-dir=%{_gtkdocdir}
 %{__make}
 
 %install
@@ -288,9 +284,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/peas-demo/plugins/gjshello
 %{_libdir}/peas-demo/plugins/gjshello/gjshello.js
 %{_libdir}/peas-demo/plugins/gjshello/gjshello.plugin
-%dir %{_libdir}/peas-demo/plugins/valahello
-%attr(755,root,root) %{_libdir}/peas-demo/plugins/valahello/libvalahello.so
-%{_libdir}/peas-demo/plugins/valahello/valahello.plugin
 
 %if %{with apidocs}
 %files apidocs
