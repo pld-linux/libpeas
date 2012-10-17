@@ -6,12 +6,12 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.6.0
+Version:	1.6.1
 Release:	1
 License:	LGPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.6/%{name}-%{version}.tar.xz
-# Source0-md5:	ad922c0a77193e5a216d133fd7d3c9dc
+# Source0-md5:	773dee6611735f26872fb94cc024352b
 URL:		http://live.gnome.org/Libpeas
 BuildRequires:	autoconf >= 2.63.2
 BuildRequires:	automake >= 1:1.11
@@ -257,6 +257,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libpeas-gtk-1.0.so
 %{_pkgconfigdir}/libpeas-gtk-1.0.pc
 %{_datadir}/gir-1.0/PeasGtk-1.0.gir
+%{_datadir}/glade/catalogs/libpeas-gtk.xml
 
 %if %{with static_libs}
 %files gtk-static
