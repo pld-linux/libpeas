@@ -316,8 +316,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libpeas-gtk-1.0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libpeas-gtk-1.0.so.0
 %{_libdir}/girepository-1.0/PeasGtk-1.0.typelib
-%{_iconsdir}/hicolor/*/*/*.png
-%{_iconsdir}/hicolor/scalable/*/*.svg
+%{_iconsdir}/hicolor/*/actions/libpeas-plugin.png
+%{_iconsdir}/hicolor/scalable/actions/libpeas-plugin.svg
 
 %files gtk-devel
 %defattr(644,root,root,755)
@@ -339,7 +339,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files demo
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/peas-demo
 %dir %{_libdir}/peas-demo
 %dir %{_libdir}/peas-demo/plugins
 %dir %{_libdir}/peas-demo/plugins/helloworld
