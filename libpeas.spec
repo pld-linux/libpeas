@@ -25,7 +25,7 @@ BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	gtk-doc >= 1.11
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	libtool >= 2:2.2.6
-BuildRequires:	python >= 2.5.2
+BuildRequires:	python >= 1:2.5.2
 BuildRequires:	python-pygobject3-devel >= 3.0.0
 BuildRequires:	python3-devel >= 3.2.0
 BuildRequires:	rpmbuild(macros) >= 1.601
@@ -56,7 +56,7 @@ Summary:	Python 2.x loader for libpeas library
 Summary(pl.UTF-8):	Moduł ładujący dla Pythona 2.x do biblioteki libpeas
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	python-libs >= 2.5.2
+Requires:	python-libs >= 1:2.5.2
 
 %description loader-python
 Python 2.x loader for libpeas library.
@@ -95,7 +95,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libpeas
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.32.0
-Requires:	gobject-introspection-devel >= 0.10.1
+Requires:	gobject-introspection-devel >= 1.40.0
 
 %description devel
 Header files for libpeas library.
