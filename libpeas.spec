@@ -3,12 +3,12 @@
 %bcond_without	apidocs		# do not build and package API docs
 %bcond_without	static_libs	# don't build static libraries
 %bcond_without	glade		# don't package glade catalog file
-#
+
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
 Version:	1.12.1
-Release:	3
+Release:	4
 License:	LGPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.12/%{name}-%{version}.tar.xz
@@ -189,6 +189,9 @@ Summary:	libpeas API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libpeas
 Group:		Documentation
 Requires:	gtk-doc-common
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API and internal documentation for libpeas library.
