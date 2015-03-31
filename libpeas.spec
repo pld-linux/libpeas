@@ -25,6 +25,7 @@ BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	gtk-doc >= 1.11
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	libtool >= 2:2.2.6
+BuildRequires:	lua-lgi
 BuildRequires:	lua51-devel
 BuildRequires:	python >= 1:2.5.2
 BuildRequires:	python-pygobject3-devel >= 3.2.0
@@ -56,7 +57,7 @@ Summary:	Lua loader for libpeas library
 Summary(pl.UTF-8):	Moduł ładujący dla języka Lua do biblioteki libpeas
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	lua51-libs
+Requires:	lua-lgi
 
 %description loader-lua
 Lua loader for libpeas library.
@@ -273,7 +274,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files loader-lua
 %defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libseedloader.so
+%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/liblua51loader.so
 
 %files loader-python
 %defattr(644,root,root,755)
@@ -337,6 +338,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/peas-demo/plugins/secondtime
 %attr(755,root,root) %{_libdir}/peas-demo/plugins/secondtime/libsecondtime.so
 %{_libdir}/peas-demo/plugins/secondtime/secondtime.plugin
+%{_libdir}/peas-demo/plugins/luahello/luahello.plugin
 
 %if %{with apidocs}
 %files apidocs
