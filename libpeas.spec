@@ -56,7 +56,7 @@ Summary:	Lua loader for libpeas library
 Summary(pl.UTF-8):	Moduł ładujący dla języka Lua do biblioteki libpeas
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	lua51
+Requires:	lua51-libs
 
 %description loader-lua
 Lua loader for libpeas library.
