@@ -7,29 +7,29 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.12.1
-Release:	4
+Version:	1.14.0
+Release:	1
 License:	LGPL v2
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.12/%{name}-%{version}.tar.xz
-# Source0-md5:	2bd146e4cb2335843c6145f81e0a8d0e
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.14/%{name}-%{version}.tar.xz
+# Source0-md5:	1347653703ba4d50dd746845c35d010a
 URL:		http://live.gnome.org/Libpeas
 BuildRequires:	autoconf >= 2.63.2
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-tools >= 0.17
 %{?with_glade:BuildRequires:	glade-devel >= 2.0}
-BuildRequires:	glib2-devel >= 1:2.32.0
+BuildRequires:	glib2-devel >= 1:2.38.0
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 1.40.0
 BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	gtk-doc >= 1.11
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	libtool >= 2:2.2.6
+BuildRequires:	lua51-devel
 BuildRequires:	python >= 1:2.5.2
-BuildRequires:	python-pygobject3-devel >= 3.0.0
+BuildRequires:	python-pygobject3-devel >= 3.2.0
 BuildRequires:	python3-devel >= 1:3.2.0
 BuildRequires:	rpmbuild(macros) >= 1.601
-BuildRequires:	seed-devel >= 3.0.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Obsoletes:	libpeas-loader-gjs < 1.10.0
@@ -50,6 +50,19 @@ pewien zbiór możliwości, w tym:
  - wiele punktów rozszerzeń
  - wsparcie dla leniwego programowania dla języków C, Python i JS
  - prostota API
+
+%package loader-lua
+Summary:	Lua loader for libpeas library
+Summary(pl.UTF-8):	Moduł ładujący dla języka Lua do biblioteki libpeas
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	lua51
+
+%description loader-lua
+Lua loader for libpeas library.
+
+%description loader-lua -l pl.UTF-8
+Moduł ładujący dla języka Lua do biblioteki libpeas.
 
 %package loader-python
 Summary:	Python 2.x loader for libpeas library
@@ -76,25 +89,12 @@ Python 3.x loader for libpeas library.
 %description loader-python3 -l pl.UTF-8
 Moduł ładujący dla Pythona 3.x do biblioteki libpeas.
 
-%package loader-seed
-Summary:	JavaScript (seed) loader for libpeas library
-Summary(pl.UTF-8):	Moduł ładujący dla JavaScriptu (seed) do biblioteki libpeas
-Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	seed >= 3.0.0
-
-%description loader-seed
-JavaScript (seed) loader for libpeas library.
-
-%description loader-seed -l pl.UTF-8
-Moduł ładujący dla JavaScriptu (seed) do biblioteki libpeas.
-
 %package devel
 Summary:	Header files for libpeas library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libpeas
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.32.0
+Requires:	glib2-devel >= 1:2.38.0
 Requires:	gobject-introspection-devel >= 1.40.0
 
 %description devel
@@ -271,6 +271,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/libpeas-1.0/loaders
 %{_libdir}/girepository-1.0/Peas-1.0.typelib
 
+%files loader-lua
+%defattr(644,root,root,755)
+#%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libseedloader.so
+
 %files loader-python
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libpythonloader.so
@@ -278,10 +282,6 @@ rm -rf $RPM_BUILD_ROOT
 %files loader-python3
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libpython3loader.so
-
-%files loader-seed
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libseedloader.so
 
 %files devel
 %defattr(644,root,root,755)
@@ -337,9 +337,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/peas-demo/plugins/secondtime
 %attr(755,root,root) %{_libdir}/peas-demo/plugins/secondtime/libsecondtime.so
 %{_libdir}/peas-demo/plugins/secondtime/secondtime.plugin
-%dir %{_libdir}/peas-demo/plugins/seedhello
-%{_libdir}/peas-demo/plugins/seedhello/seedhello.js
-%{_libdir}/peas-demo/plugins/seedhello/seedhello.plugin
 
 %if %{with apidocs}
 %files apidocs
