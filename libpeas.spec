@@ -8,7 +8,7 @@ Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
 Version:	1.14.0
-Release:	1
+Release:	2
 License:	LGPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.14/%{name}-%{version}.tar.xz
@@ -41,7 +41,7 @@ libpeas is a gobject-based plugins engine, and is targetted at giving
 every application the chance to assume its own extensibility. It also
 has a set of features including, but not limited to:
  - multiple extension points
- - on demand (lazy) programming language support for C, Python and JS
+ - on demand (lazy) programming language support for C, Python and Lua
  - simplicity of the API
 
 %description -l pl.UTF-8
@@ -49,7 +49,7 @@ libpeas to silnik wtyczek oparty na bibliotece GObject; jego celem
 jest zapewnienie każdej aplikacji własnej rozszerzalności. Ma także
 pewien zbiór możliwości, w tym:
  - wiele punktów rozszerzeń
- - wsparcie dla leniwego programowania dla języków C, Python i JS
+ - wsparcie dla leniwego programowania dla języków C, Python i Lua
  - prostota API
 
 %package loader-lua
@@ -130,7 +130,7 @@ libpeas is a gobject-based plugins engine, and is targetted at giving
 every application the chance to assume its own extensibility. It also
 has a set of features including, but not limited to:
  - multiple extension points
- - on demand (lazy) programming language support for C, Python and JS
+ - on demand (lazy) programming language support for C, Python and Lua
  - simplicity of the API
 
 This package contains GTK+ widgets library.
@@ -140,7 +140,7 @@ libpeas to silnik wtyczek oparty na bibliotece GObject; jego celem
 jest zapewnienie każdej aplikacji własnej rozszerzalności. Ma także
 pewien zbiór możliwości, w tym:
  - wiele punktów rozszerzeń
- - wsparcie dla leniwego programowania dla języków C, Python i JS
+ - wsparcie dla leniwego programowania dla języków C, Python i Lua
  - prostota API
 
 Ten pakiet zawiera bibliotekę widgetów GTK+.
@@ -206,8 +206,8 @@ Summary(pl.UTF-8):	Aplikacja demonstracyjna libpeas
 Group:		Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-gtk = %{version}-%{release}
+Requires:	%{name}-loader-lua = %{version}-%{release}
 Requires:	%{name}-loader-python = %{version}-%{release}
-Requires:	%{name}-loader-seed = %{version}-%{release}
 
 %description demo
 Demo application for libpeas.
@@ -331,6 +331,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/peas-demo/plugins/helloworld
 %attr(755,root,root) %{_libdir}/peas-demo/plugins/helloworld/libhelloworld.so
 %{_libdir}/peas-demo/plugins/helloworld/helloworld.plugin
+%dir %{_libdir}/peas-demo/plugins/luahello
+%{_libdir}/peas-demo/plugins/luahello/luahello.plugin
 %dir %{_libdir}/peas-demo/plugins/pythonhello
 %{_libdir}/peas-demo/plugins/pythonhello/pythonhello.plugin
 %{_libdir}/peas-demo/plugins/pythonhello/pythonhello.py*
@@ -338,7 +340,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/peas-demo/plugins/secondtime
 %attr(755,root,root) %{_libdir}/peas-demo/plugins/secondtime/libsecondtime.so
 %{_libdir}/peas-demo/plugins/secondtime/secondtime.plugin
-%{_libdir}/peas-demo/plugins/luahello/luahello.plugin
 
 %if %{with apidocs}
 %files apidocs
