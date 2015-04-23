@@ -36,6 +36,7 @@ BuildRequires:	rpmbuild(macros) >= 1.601
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Obsoletes:	libpeas-loader-gjs < 1.10.0
+Obsoletes:	libpeas-loader-seed < 1.14.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
