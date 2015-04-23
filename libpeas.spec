@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_without	apidocs		# do not build and package API docs
+%bcond_without	luajit		# LuaJIT implementation of lua 5.1
 %bcond_without	static_libs	# don't build static libraries
 %bcond_without	glade		# don't package glade catalog file
 
@@ -26,7 +27,8 @@ BuildRequires:	gtk-doc >= 1.11
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	lua-lgi
-BuildRequires:	lua51-devel
+%{!?with_luajit:BuildRequires:	lua51-devel >= 5.1.0}
+%{?with_luajit:BuildRequires:	luajit-devel >= 2.0}
 BuildRequires:	python >= 1:2.5.2
 BuildRequires:	python-pygobject3-devel >= 3.2.0
 BuildRequires:	python3-devel >= 1:3.2.0
@@ -225,6 +227,7 @@ Aplikacja demonstracyjna libpeas.
 %{__autoheader}
 %{__automake}
 %configure \
+	%{!?with_luajit:--disable-luajit} \
 	--disable-silent-rules \
 	%{__enable_disable apidocs gtk-doc} \
 	%{__enable_disable glade glade-catalog} \
