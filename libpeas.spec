@@ -40,6 +40,8 @@ BuildRequires:	python3-devel >= 1:3.2.0
 BuildRequires:	rpmbuild(macros) >= 1.601
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+Requires:	glib2 >= 1:2.38.0
+Requires:	gobject-introspection >= 1.40.0
 Obsoletes:	libpeas-loader-gjs < 1.10.0
 Obsoletes:	libpeas-loader-seed < 1.14.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
