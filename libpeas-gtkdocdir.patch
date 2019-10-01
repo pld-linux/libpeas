@@ -1,0 +1,35 @@
+--- libpeas-1.24.0/meson.build.orig	2019-09-10 02:41:29.000000000 +0200
++++ libpeas-1.24.0/meson.build	2019-10-01 18:34:15.763714876 +0200
+@@ -62,7 +62,6 @@
+ pkgdatadir = join_paths(datadir, package_string)
+ 
+ girdir = join_paths(datadir, 'gir-1.0')
+-gtkdocdir = join_paths(datadir, 'gtk-doc')
+ iconsdir = join_paths(datadir, 'icons')
+ pkgconfigdir = join_paths(libdir, 'pkgconfig')
+ typelibdir = join_paths(libdir, 'girepository-1.0')
+--- libpeas-1.24.0/docs/reference/meson.build.orig	2019-10-01 19:04:10.210660189 +0200
++++ libpeas-1.24.0/docs/reference/meson.build	2019-10-01 19:04:13.473975844 +0200
+@@ -1,8 +1,8 @@
+ glib_prefix = glib_dep.get_pkgconfig_variable('prefix')
+-glib_docpath = join_paths(glib_prefix, 'share', 'gtk-doc', 'html')
++glib_docpath = join_paths(glib_prefix, 'share', 'doc', 'gtk-doc', 'html')
+ 
+ gtk_prefix = gtk_dep.get_pkgconfig_variable('prefix')
+-gtk_docpath = join_paths(gtk_prefix, 'share', 'gtk-doc', 'html')
++gtk_docpath = join_paths(gtk_prefix, 'share', 'doc', 'gtk-doc', 'html')
+ 
+ libpeas_reference_ignored_h = [
+   'peas-debug.h',
+@@ -90,10 +90,5 @@
+   scan_args: libpeas_reference_scan_args,
+   fixxref_args: libpeas_reference_fixxref_args,
+   mkdb_args: libpeas_reference_mkdb_args,
+-  install: true,
+-  install_dir: join_paths(
+-    gtkdocdir,
+-    'html',
+-    package_name,
+-  )
++  install: true
+ )

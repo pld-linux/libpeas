@@ -1,9 +1,12 @@
 #
 # Conditional build:
-%bcond_without	apidocs		# do not build and package API docs
+%bcond_without	apidocs		# API documentation
 %bcond_without	luajit		# LuaJIT implementation of lua 5.1
-%bcond_without	static_libs	# don't build static libraries
-%bcond_without	glade		# don't package glade catalog file
+%bcond_without	static_libs	# static libraries
+%bcond_without	glade		# glade catalog file packaging
+%bcond_without	lua		# Lua (5.1) loader
+%bcond_without	python2		# Python 2.x loader
+%bcond_without	python3		# Python 3.x loader
 
 # luajit is not supported on x32
 %ifarch x32
@@ -13,33 +16,41 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.22.0
-Release:	2
-License:	LGPL v2
+Version:	1.24.0
+Release:	1
+License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.22/%{name}-%{version}.tar.xz
-# Source0-md5:	a20dc55c3f88ad06da9491cfd7de7558
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.24/%{name}-%{version}.tar.xz
+# Source0-md5:	7a136eea60930012deff2f7bfa3673be
+Patch0:		%{name}-tests-with-static.patch
+Patch1:		%{name}-gtkdocdir.patch
 URL:		https://wiki.gnome.org/Libpeas
-BuildRequires:	autoconf >= 2.63.2
-BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-tools >= 0.17
 %{?with_glade:BuildRequires:	glade-devel >= 2.0}
 BuildRequires:	glib2-devel >= 1:2.38.0
-BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 1.40.0
 BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	gtk-doc >= 1.11
 BuildRequires:	intltool >= 0.40.0
-BuildRequires:	libtool >= 2:2.2.6
-BuildRequires:	lua-lgi
+%if %{with lua}
+BuildRequires:	lua-lgi >= 0.9.0
 %{!?with_luajit:BuildRequires:	lua51-devel >= 5.1.0}
 %{?with_luajit:BuildRequires:	luajit-devel >= 2.0}
-BuildRequires:	python >= 1:2.5.2
+%endif
+BuildRequires:	meson >= 0.49.0
+BuildRequires:	ninja >= 1.5
+%if %{with python2}
+BuildRequires:	python-devel >= 1:2.5.2
 BuildRequires:	python-pygobject3-devel >= 3.2.0
+%endif
+%if %{with python3}
 BuildRequires:	python3-devel >= 1:3.2.0
+BuildRequires:	python3-pygobject3-devel >= 3.2.0
+%endif
 BuildRequires:	rpmbuild(macros) >= 1.601
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+%{!?with_luajit:BuildConflicts:	luajit-devel}
 Requires:	glib2 >= 1:2.38.0
 Requires:	gobject-introspection >= 1.40.0
 Obsoletes:	libpeas-loader-gjs < 1.10.0
@@ -216,8 +227,12 @@ Summary(pl.UTF-8):	Aplikacja demonstracyjna libpeas
 Group:		Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-gtk = %{version}-%{release}
+%if %{with lua}
 Requires:	%{name}-loader-lua = %{version}-%{release}
-Requires:	%{name}-loader-python = %{version}-%{release}
+%endif
+%if %{with python3}
+Requires:	%{name}-loader-python3 = %{version}-%{release}
+%endif
 
 %description demo
 Demo application for libpeas.
@@ -227,38 +242,43 @@ Aplikacja demonstracyjna libpeas.
 
 %prep
 %setup -q
+%if %{with static_libs}
+%patch0 -p1
+%endif
+%patch1 -p1
+
+%if %{with lua}
+# meson buildsystem expects .pc file for lua-lgi detection
+install -d fake-pkgconfig
+cat >fake-pkgconfig/lua5.1-lgi.pc <<'EOF'
+Name: lua-lgi
+Description: Lua LGI
+Version: %(rpm -q --qf '%%{V}\n' lua-lgi)
+EOF
+%endif
 
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	%{!?with_luajit:--disable-luajit} \
-	--disable-silent-rules \
-	%{__enable_disable apidocs gtk-doc} \
-	%{__enable_disable glade glade-catalog} \
-	%{__enable_disable static_libs static} \
-	--with-html-dir=%{_gtkdocdir}
-%{__make}
+export PKG_CONFIG_PATH=$(pwd)/fake-pkgconfig
+%meson build \
+	%{!?with_static_libs:--default-library=shared} \
+	%{!?with_glade:-Dglade_catalog=false} \
+	%{?with_apidocs:-Dgtk_doc=true} \
+	%{!?with_lua:-Dlua51=false} \
+	%{?with_python2:-Dpython2=true} \
+	%{!?with_python3:-Dpython3=false} \
+	-Dvapi=true
+
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%ninja_install -C build
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la \
-	$RPM_BUILD_ROOT%{_libdir}/peas-demo/plugins/*/*.la \
-	$RPM_BUILD_ROOT%{_libdir}/libpeas-1.0/loaders/*.la
+%py3_comp $RPM_BUILD_ROOT%{_libdir}/peas-demo/plugins/pythonhello
+%py3_ocomp $RPM_BUILD_ROOT%{_libdir}/peas-demo/plugins/pythonhello
 
-%if %{with static_libs}
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/peas-demo/plugins/*/*.a \
-	$RPM_BUILD_ROOT%{_libdir}/libpeas-1.0/loaders/*.a
-%endif
-
-%find_lang libpeas
+%find_lang libpeas-1.0
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -274,26 +294,32 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/ldconfig
 %update_icon_cache hicolor
 
-%files -f libpeas.lang
+%files -f libpeas-1.0.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README
+%doc AUTHORS NEWS README
 %attr(755,root,root) %{_libdir}/libpeas-1.0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libpeas-1.0.so.0
 %dir %{_libdir}/libpeas-1.0
 %dir %{_libdir}/libpeas-1.0/loaders
 %{_libdir}/girepository-1.0/Peas-1.0.typelib
 
+%if %{with lua}
 %files loader-lua
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/liblua51loader.so
+%endif
 
+%if %{with python2}
 %files loader-python
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libpythonloader.so
+%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libpython2loader.so
+%endif
 
+%if %{with python3}
 %files loader-python3
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libpython3loader.so
+%endif
 
 %files devel
 %defattr(644,root,root,755)
@@ -313,7 +339,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libpeas-gtk-1.0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libpeas-gtk-1.0.so.0
 %{_libdir}/girepository-1.0/PeasGtk-1.0.typelib
-%{_iconsdir}/hicolor/*/actions/libpeas-plugin.png
+%{_iconsdir}/hicolor/*x*/actions/libpeas-plugin.png
 %{_iconsdir}/hicolor/scalable/actions/libpeas-plugin.svg
 
 %files gtk-devel
@@ -342,12 +368,17 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/peas-demo/plugins/helloworld
 %attr(755,root,root) %{_libdir}/peas-demo/plugins/helloworld/libhelloworld.so
 %{_libdir}/peas-demo/plugins/helloworld/helloworld.plugin
+%if %{with lua}
 %dir %{_libdir}/peas-demo/plugins/luahello
+%{_libdir}/peas-demo/plugins/luahello/luahello.lua
 %{_libdir}/peas-demo/plugins/luahello/luahello.plugin
+%endif
+%if %{with python3}
 %dir %{_libdir}/peas-demo/plugins/pythonhello
 %{_libdir}/peas-demo/plugins/pythonhello/pythonhello.plugin
-%{_libdir}/peas-demo/plugins/pythonhello/pythonhello.py*
+%{_libdir}/peas-demo/plugins/pythonhello/pythonhello.py
 %{_libdir}/peas-demo/plugins/pythonhello/__pycache__
+%endif
 %dir %{_libdir}/peas-demo/plugins/secondtime
 %attr(755,root,root) %{_libdir}/peas-demo/plugins/secondtime/libsecondtime.so
 %{_libdir}/peas-demo/plugins/secondtime/secondtime.plugin

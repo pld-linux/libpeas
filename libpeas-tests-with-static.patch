@@ -1,0 +1,28 @@
+--- libpeas-1.24.0/libpeas-gtk/meson.build.orig	2019-09-10 02:41:29.000000000 +0200
++++ libpeas-1.24.0/libpeas-gtk/meson.build	2019-09-30 20:10:09.963943989 +0200
+@@ -42,16 +42,6 @@
+   )
+ )
+ 
+-# Static library used for testing symbol access
+-libpeas_gtk_test = static_library(
+-  package_gtk_string.strip('lib'),
+-  libpeas_gtk_c,
+-  include_directories: rootdir,
+-  dependencies: libpeas_gtk_deps,
+-  c_args: libpeas_gtk_c_args,
+-  link_args: libpeas_gtk_link_args,
+-)
+-
+ libpeas_gtk_sha = library(
+   package_gtk_string.strip('lib'),
+   libpeas_gtk_c,
+@@ -105,7 +95,7 @@
+ )
+ 
+ libpeas_gtk_test_dep = declare_dependency(
+-  link_with: libpeas_gtk_test,
++  link_with: libpeas_gtk_sha.get_static_lib(),
+   dependencies: libpeas_gtk_deps,
+   include_directories: rootdir,
+   sources: libpeas_gtk_dep_sources,
