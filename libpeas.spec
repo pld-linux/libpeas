@@ -16,12 +16,12 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.24.0
-Release:	2
+Version:	1.24.1
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.24/%{name}-%{version}.tar.xz
-# Source0-md5:	7a136eea60930012deff2f7bfa3673be
+# Source0-md5:	bbecf334a7333d0a5d4d655ba38be9b4
 Patch0:		%{name}-tests-with-static.patch
 Patch1:		%{name}-gtkdocdir.patch
 URL:		https://wiki.gnome.org/Libpeas
@@ -312,7 +312,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files loader-python
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libpython2loader.so
+%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libpythonloader.so
 %endif
 
 %if %{with python3}
