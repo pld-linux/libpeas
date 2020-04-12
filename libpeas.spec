@@ -25,13 +25,12 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.26/%{name}-%{version}.
 Patch0:		%{name}-tests-with-static.patch
 Patch1:		%{name}-gtkdocdir.patch
 URL:		https://wiki.gnome.org/Libpeas
-BuildRequires:	gettext-tools >= 0.17
+BuildRequires:	gettext-tools >= 0.19.7
 %{?with_glade:BuildRequires:	glade-devel >= 2.0}
 BuildRequires:	glib2-devel >= 1:2.38.0
 BuildRequires:	gobject-introspection-devel >= 1.40.0
 BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	gtk-doc >= 1.11
-BuildRequires:	intltool >= 0.40.0
 %if %{with lua}
 BuildRequires:	lua-lgi >= 0.9.0
 %{!?with_luajit:BuildRequires:	lua51-devel >= 5.1.0}
@@ -47,7 +46,7 @@ BuildRequires:	python-pygobject3-devel >= 3.2.0
 BuildRequires:	python3-devel >= 1:3.2.0
 BuildRequires:	python3-pygobject3-devel >= 3.2.0
 %endif
-BuildRequires:	rpmbuild(macros) >= 1.601
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 %{!?with_luajit:BuildConflicts:	luajit-devel}
