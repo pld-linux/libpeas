@@ -16,12 +16,12 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.26.0
+Version:	1.28.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.26/%{name}-%{version}.tar.xz
-# Source0-md5:	f7723bf8433b7984121157e1e9a629b5
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.28/%{name}-%{version}.tar.xz
+# Source0-md5:	62a5d01e9561f8fafca68e2863640735
 Patch0:		%{name}-tests-with-static.patch
 Patch1:		%{name}-gtkdocdir.patch
 URL:		https://wiki.gnome.org/Libpeas
@@ -48,6 +48,7 @@ BuildRequires:	python3-pygobject3-devel >= 3.2.0
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
+BuildRequires:	vala
 BuildRequires:	xz
 %{!?with_luajit:BuildConflicts:	luajit-devel}
 Requires:	glib2 >= 1:2.38.0
@@ -77,7 +78,7 @@ Summary:	Lua loader for libpeas library
 Summary(pl.UTF-8):	Moduł ładujący dla języka Lua do biblioteki libpeas
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	lua-lgi
+Requires:	lua-lgi >= 0.9.0
 
 %description loader-lua
 Lua loader for libpeas library.
@@ -210,7 +211,7 @@ Summary:	libpeas API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libpeas
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
