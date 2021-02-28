@@ -20,7 +20,7 @@ Version:	1.28.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/libpeas/1.28/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/libpeas/1.28/%{name}-%{version}.tar.xz
 # Source0-md5:	62a5d01e9561f8fafca68e2863640735
 Patch0:		%{name}-tests-with-static.patch
 Patch1:		%{name}-gtkdocdir.patch
