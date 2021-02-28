@@ -211,9 +211,7 @@ Summary:	libpeas API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libpeas
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 API and internal documentation for libpeas library.
