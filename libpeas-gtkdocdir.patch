@@ -20,7 +20,7 @@
 +gtk_docpath = join_paths(gtk_prefix, 'share', 'doc', 'gtk-doc', 'html')
  
  libpeas_reference_ignored_h = [
-   'peas-debug.h',
+   'gconstructor.h',
 @@ -90,10 +90,5 @@
    scan_args: libpeas_reference_scan_args,
    fixxref_args: libpeas_reference_fixxref_args,
