@@ -16,14 +16,13 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.28.0
-Release:	2
+Version:	1.30.0
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	https://download.gnome.org/sources/libpeas/1.28/%{name}-%{version}.tar.xz
-# Source0-md5:	62a5d01e9561f8fafca68e2863640735
-Patch0:		%{name}-tests-with-static.patch
-Patch1:		%{name}-gtkdocdir.patch
+Source0:	https://download.gnome.org/sources/libpeas/1.30/%{name}-%{version}.tar.xz
+# Source0-md5:	60b9d9fe2ee9dd518fb12d5d404e296a
+Patch0:		%{name}-gtkdocdir.patch
 URL:		https://wiki.gnome.org/Libpeas
 BuildRequires:	gettext-tools >= 0.19.7
 %{?with_glade:BuildRequires:	glade-devel >= 2.0}
@@ -240,10 +239,7 @@ Aplikacja demonstracyjna libpeas.
 
 %prep
 %setup -q
-%if %{with static_libs}
 %patch0 -p1
-%endif
-%patch1 -p1
 
 %if %{with lua}
 # meson buildsystem expects .pc file for lua-lgi detection
