@@ -35,7 +35,7 @@ BuildRequires:	lua-lgi >= 0.9.0
 %{!?with_luajit:BuildRequires:	lua51-devel >= 5.1.0}
 %{?with_luajit:BuildRequires:	luajit-devel >= 2.0}
 %endif
-BuildRequires:	meson >= 0.49.0
+BuildRequires:	meson >= 0.50.0
 BuildRequires:	ninja >= 1.5
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.5.2
@@ -45,6 +45,7 @@ BuildRequires:	python-pygobject3-devel >= 3.2.0
 BuildRequires:	python3-devel >= 1:3.2.0
 BuildRequires:	python3-pygobject3-devel >= 3.2.0
 %endif
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	vala
