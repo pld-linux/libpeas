@@ -16,20 +16,19 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.30.0
-Release:	3
+Version:	1.32.0
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	https://download.gnome.org/sources/libpeas/1.30/%{name}-%{version}.tar.xz
-# Source0-md5:	60b9d9fe2ee9dd518fb12d5d404e296a
-Patch0:		%{name}-gtkdocdir.patch
+Source0:	https://download.gnome.org/sources/libpeas/1.32/%{name}-%{version}.tar.xz
+# Source0-md5:	ea067e520d1b19606dbe47d20c625b8f
 URL:		https://wiki.gnome.org/Libpeas
 BuildRequires:	gettext-tools >= 0.19.7
+%{?with_apidocs:BuildRequires:	gi-docgen >= 2021.7}
 %{?with_glade:BuildRequires:	glade-devel >= 2.0}
 BuildRequires:	glib2-devel >= 1:2.38.0
 BuildRequires:	gobject-introspection-devel >= 1.40.0
 BuildRequires:	gtk+3-devel >= 3.0.0
-BuildRequires:	gtk-doc >= 1.11
 %if %{with lua}
 BuildRequires:	lua-lgi >= 0.9.0
 %{!?with_luajit:BuildRequires:	lua51-devel >= 5.1.0}
@@ -240,7 +239,6 @@ Aplikacja demonstracyjna libpeas.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %if %{with lua}
 # meson buildsystem expects .pc file for lua-lgi detection
@@ -272,6 +270,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %py3_comp $RPM_BUILD_ROOT%{_libdir}/peas-demo/plugins/pythonhello
 %py3_ocomp $RPM_BUILD_ROOT%{_libdir}/peas-demo/plugins/pythonhello
+
+%if %{with apidocs}
+install -d $RPM_BUILD_ROOT%{_gtkdocdir}
+%{__mv} $RPM_BUILD_ROOT%{_datadir}/doc/libpeas-* $RPM_BUILD_ROOT%{_gtkdocdir}
+%endif
 
 %find_lang libpeas-1.0
 
@@ -381,5 +384,6 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/libpeas
+%{_gtkdocdir}/libpeas-1.0
+%{_gtkdocdir}/libpeas-gtk-1.0
 %endif
