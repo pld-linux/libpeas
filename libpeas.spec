@@ -16,12 +16,12 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.32.0
+Version:	1.34.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	https://download.gnome.org/sources/libpeas/1.32/%{name}-%{version}.tar.xz
-# Source0-md5:	ea067e520d1b19606dbe47d20c625b8f
+Source0:	https://download.gnome.org/sources/libpeas/1.34/%{name}-%{version}.tar.xz
+# Source0-md5:	8f71eec16b5c5da2a6ee37ecc5491eb9
 URL:		https://wiki.gnome.org/Libpeas
 BuildRequires:	gettext-tools >= 0.19.7
 %{?with_apidocs:BuildRequires:	gi-docgen >= 2021.7}
