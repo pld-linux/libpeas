@@ -31,8 +31,13 @@ BuildRequires:	gobject-introspection-devel >= 1.40.0
 BuildRequires:	gtk+3-devel >= 3.0.0
 %if %{with lua}
 BuildRequires:	lua-lgi >= 0.9.0
-%{!?with_luajit:BuildRequires:	lua51-devel >= 5.1.0}
-%{?with_luajit:BuildRequires:	luajit-devel >= 2.0}
+%if %{without luajit}
+BuildRequires:	lua51 >= 5.1.0
+BuildRequires:	lua51-devel >= 5.1.0
+%else
+BuildRequires:	luajit >= 2.0
+BuildRequires:	luajit-devel >= 2.0
+%endif
 %endif
 BuildRequires:	meson >= 0.50.0
 BuildRequires:	ninja >= 1.5
