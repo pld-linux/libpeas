@@ -16,17 +16,17 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.34.0
+Version:	1.36.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	https://download.gnome.org/sources/libpeas/1.34/%{name}-%{version}.tar.xz
-# Source0-md5:	8f71eec16b5c5da2a6ee37ecc5491eb9
+Source0:	https://download.gnome.org/sources/libpeas/1.36/%{name}-%{version}.tar.xz
+# Source0-md5:	b3dd31a79c47af0cbf22f2d6bf52bc7d
 URL:		https://wiki.gnome.org/Libpeas
 BuildRequires:	gettext-tools >= 0.19.7
 %{?with_apidocs:BuildRequires:	gi-docgen >= 2021.7}
 %{?with_glade:BuildRequires:	glade-devel >= 2.0}
-BuildRequires:	glib2-devel >= 1:2.38.0
+BuildRequires:	glib2-devel >= 1:2.44.0
 BuildRequires:	gobject-introspection-devel >= 1.40.0
 BuildRequires:	gtk+3-devel >= 3.0.0
 %if %{with lua}
@@ -55,7 +55,7 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	vala
 BuildRequires:	xz
 %{!?with_luajit:BuildConflicts:	luajit-devel}
-Requires:	glib2 >= 1:2.38.0
+Requires:	glib2 >= 1:2.44.0
 Requires:	gobject-introspection >= 1.40.0
 Obsoletes:	libpeas-loader-gjs < 1.10.0
 Obsoletes:	libpeas-loader-seed < 1.14.0
@@ -120,7 +120,7 @@ Summary:	Header files for libpeas library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libpeas
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.38.0
+Requires:	glib2-devel >= 1:2.44.0
 Requires:	gobject-introspection-devel >= 1.40.0
 
 %description devel
