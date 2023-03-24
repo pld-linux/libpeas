@@ -17,7 +17,7 @@ Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
 Version:	1.36.0
-Release:	1
+Release:	2
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	https://download.gnome.org/sources/libpeas/1.36/%{name}-%{version}.tar.xz
@@ -280,6 +280,9 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_gtkdocdir}
 %{__mv} $RPM_BUILD_ROOT%{_datadir}/doc/libpeas-* $RPM_BUILD_ROOT%{_gtkdocdir}
 %endif
+
+# not supported by glibc (as of 2.37)
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ie
 
 %find_lang libpeas-1.0
 
