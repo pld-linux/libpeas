@@ -50,7 +50,7 @@ BuildRequires:	python3-devel >= 1:3.2.0
 BuildRequires:	python3-pygobject3-devel >= 3.2.0
 %endif
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 2.029
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	vala
 BuildRequires:	xz
@@ -214,7 +214,6 @@ Statyczna biblioteka libpeas.
 Summary:	libpeas API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libpeas
 Group:		Documentation
-Requires:	gtk-doc-common
 BuildArch:	noarch
 
 %description apidocs
@@ -277,8 +276,8 @@ rm -rf $RPM_BUILD_ROOT
 %py3_ocomp $RPM_BUILD_ROOT%{_libdir}/peas-demo/plugins/pythonhello
 
 %if %{with apidocs}
-install -d $RPM_BUILD_ROOT%{_gtkdocdir}
-%{__mv} $RPM_BUILD_ROOT%{_datadir}/doc/libpeas-* $RPM_BUILD_ROOT%{_gtkdocdir}
+install -d $RPM_BUILD_ROOT%{_gidocdir}
+%{__mv} $RPM_BUILD_ROOT%{_datadir}/doc/libpeas-* $RPM_BUILD_ROOT%{_gidocdir}
 %endif
 
 # not supported by glibc (as of 2.37)
@@ -392,6 +391,6 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/libpeas-1.0
-%{_gtkdocdir}/libpeas-gtk-1.0
+%{_gidocdir}/libpeas-1.0
+%{_gidocdir}/libpeas-gtk-1.0
 %endif
