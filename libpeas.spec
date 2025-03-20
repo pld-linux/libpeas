@@ -41,6 +41,7 @@ BuildRequires:	luajit-devel >= 2.0
 %endif
 BuildRequires:	meson >= 0.50.0
 BuildRequires:	ninja >= 1.5
+BuildRequires:	pkgconfig
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.5.2
 BuildRequires:	python-pygobject3-devel >= 3.2.0
