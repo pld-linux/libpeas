@@ -50,7 +50,7 @@ BuildRequires:	python3-devel >= 1:3.2.0
 BuildRequires:	python3-pygobject3-devel >= 3.2.0
 %endif
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 2.029
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	vala
 BuildRequires:	xz
@@ -256,7 +256,7 @@ EOF
 
 %build
 export PKG_CONFIG_PATH=$(pwd)/fake-pkgconfig
-%meson build \
+%meson \
 	%{!?with_static_libs:--default-library=shared} \
 	%{!?with_glade:-Dglade_catalog=false} \
 	%{?with_apidocs:-Dgtk_doc=true} \
@@ -265,12 +265,12 @@ export PKG_CONFIG_PATH=$(pwd)/fake-pkgconfig
 	%{!?with_python3:-Dpython3=false} \
 	-Dvapi=true
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %py3_comp $RPM_BUILD_ROOT%{_libdir}/peas-demo/plugins/pythonhello
 %py3_ocomp $RPM_BUILD_ROOT%{_libdir}/peas-demo/plugins/pythonhello
