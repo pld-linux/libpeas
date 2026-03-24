@@ -16,12 +16,12 @@
 Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
-Version:	1.36.0
-Release:	5
+Version:	1.38.1
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	https://download.gnome.org/sources/libpeas/1.36/%{name}-%{version}.tar.xz
-# Source0-md5:	b3dd31a79c47af0cbf22f2d6bf52bc7d
+Source0:	https://download.gnome.org/sources/libpeas/1.38/%{name}-%{version}.tar.xz
+# Source0-md5:	5e2388cd39322cd121be67ef398297d6
 URL:		https://wiki.gnome.org/Libpeas
 BuildRequires:	gettext-tools >= 0.19.7
 %{?with_apidocs:BuildRequires:	gi-docgen >= 2021.7}
@@ -303,8 +303,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f libpeas-1.0.lang
 %defattr(644,root,root,755)
 %doc AUTHORS NEWS README
-%attr(755,root,root) %{_libdir}/libpeas-1.0.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libpeas-1.0.so.0
+%{_libdir}/libpeas-1.0.so.*.*.*
+%ghost %{_libdir}/libpeas-1.0.so.1
 %dir %{_libdir}/libpeas-1.0
 %dir %{_libdir}/libpeas-1.0/loaders
 %{_libdir}/girepository-1.0/Peas-1.0.typelib
@@ -312,24 +312,24 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with lua}
 %files loader-lua
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/liblua51loader.so
+%{_libdir}/libpeas-1.0/loaders/liblua51loader.so
 %endif
 
 %if %{with python2}
 %files loader-python
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libpythonloader.so
+%{_libdir}/libpeas-1.0/loaders/libpythonloader.so
 %endif
 
 %if %{with python3}
 %files loader-python3
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpeas-1.0/loaders/libpython3loader.so
+%{_libdir}/libpeas-1.0/loaders/libpython3loader.so
 %endif
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpeas-1.0.so
+%{_libdir}/libpeas-1.0.so
 %{_includedir}/libpeas-1.0
 %{_pkgconfigdir}/libpeas-1.0.pc
 %{_datadir}/gir-1.0/Peas-1.0.gir
@@ -342,15 +342,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files gtk
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpeas-gtk-1.0.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libpeas-gtk-1.0.so.0
+%{_libdir}/libpeas-gtk-1.0.so.*.*.*
+%ghost %{_libdir}/libpeas-gtk-1.0.so.1
 %{_libdir}/girepository-1.0/PeasGtk-1.0.typelib
 %{_iconsdir}/hicolor/*x*/actions/libpeas-plugin.png
 %{_iconsdir}/hicolor/scalable/actions/libpeas-plugin.svg
 
 %files gtk-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpeas-gtk-1.0.so
+%{_libdir}/libpeas-gtk-1.0.so
 %{_pkgconfigdir}/libpeas-gtk-1.0.pc
 %{_datadir}/gir-1.0/PeasGtk-1.0.gir
 
@@ -372,7 +372,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/peas-demo
 %dir %{_libdir}/peas-demo/plugins
 %dir %{_libdir}/peas-demo/plugins/helloworld
-%attr(755,root,root) %{_libdir}/peas-demo/plugins/helloworld/libhelloworld.so
+%{_libdir}/peas-demo/plugins/helloworld/libhelloworld.so
 %{_libdir}/peas-demo/plugins/helloworld/helloworld.plugin
 %if %{with lua}
 %dir %{_libdir}/peas-demo/plugins/luahello
@@ -386,7 +386,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/peas-demo/plugins/pythonhello/__pycache__
 %endif
 %dir %{_libdir}/peas-demo/plugins/secondtime
-%attr(755,root,root) %{_libdir}/peas-demo/plugins/secondtime/libsecondtime.so
+%{_libdir}/peas-demo/plugins/secondtime/libsecondtime.so
 %{_libdir}/peas-demo/plugins/secondtime/secondtime.plugin
 
 %if %{with apidocs}
