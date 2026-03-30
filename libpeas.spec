@@ -17,7 +17,9 @@ Summary:	GObject Plugin System
 Summary(pl.UTF-8):	System wtyczek GObject
 Name:		libpeas
 Version:	1.38.1
-Release:	1
+# changelog says that libpeas 1.38 doesn't enforce girepository-2.0 migration, but it's no longer true;
+# stick to 1.36 for now
+Release:	0.1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	https://download.gnome.org/sources/libpeas/1.38/%{name}-%{version}.tar.xz
